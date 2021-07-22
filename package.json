@@ -4,6 +4,8 @@
         "nuxt": "^2.15.7"
     },
     "scripts": {
-        "dev": "nuxt"
+        "dev": "nuxt",
+        "build": "nuxt build",
+        "start": "nuxt start"
     }
 }

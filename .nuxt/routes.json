@@ -1,8 +1,9 @@
 [
   {
-    "name": "",
-    "path": "",
-    "component": "/Users/ivanamatijevic/dev/nuxtbnb/node_modules/@nuxt/vue-app/template/pages/index.vue",
-    "_name": "_f4e51be0"
+    "name": "index",
+    "path": "/",
+    "component": "/Users/ivanamatijevic/dev/nuxtbnb/pages/index.vue",
+    "chunkName": "pages/index",
+    "_name": "_44fbac42"
   }
 ]

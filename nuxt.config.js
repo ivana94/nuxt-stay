@@ -20,4 +20,5 @@ export default {
     router: {
         prefetchLinks: false,
     },
+    plugins: [{ src: "~/plugins/maps.client" }],
 };

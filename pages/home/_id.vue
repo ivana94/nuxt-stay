@@ -22,10 +22,12 @@
             {{ home.guests }} guests, {{ home.bedrooms }} rooms,
             {{ home.bathrooms }} bath
         </p>
+        <div style="height:800px;width:800px;" ref="map"></div>
     </div>
 </template>
 <script>
 import homes from "~/data/homes";
+
 export default {
     head() {
         return {
@@ -36,6 +38,13 @@ export default {
         return {
             home: {},
         };
+    },
+    mounted() {
+        this.$maps.showMap(
+            this.$refs.map,
+            this.home._geoloc.lat,
+            this.home._geoloc.lng
+        );
     },
     created() {
         const home = homes.find(

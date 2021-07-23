@@ -6,7 +6,7 @@ export default {
   props: {
     prefetch: {
       type: Boolean,
-      default: true
+      default: false
     },
     noPrefetch: {
       type: Boolean,

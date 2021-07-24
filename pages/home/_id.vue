@@ -23,6 +23,12 @@
             {{ home.bathrooms }} bath
         </p>
         <div style="height:800px;width:800px;" ref="map"></div>
+        <div v-for="review in reviews" :key="review.objectID">
+            <img :src="review.reviewer.image" />
+            <p>{{ review.reviewer.name }}</p>
+            <p>{{ formatDate(review.date) }}</p>
+            <short-text :text="review.comment" :target="150" />
+        </div>
     </div>
 </template>
 <script>
@@ -40,14 +46,32 @@ export default {
         );
     },
     async asyncData({ params, $dataApi, error }) {
-        const response = await $dataApi.getHome(params.id);
-        if (!response.ok) {
+        const homeResponse = await $dataApi.getHome(params.id);
+        if (!homeResponse.ok) {
             return error({
-                statusCode: response.status,
-                message: response.statusText,
+                statusCode: homeResponse.status,
+                message: homeResponse.statusText,
             });
         }
-        return { home: response.json };
+
+        const reviewResponse = await $dataApi.getReviewsByHomeId(params.id);
+        if (!reviewResponse.ok) {
+            return error({
+                statusCode: reviewResponse.status,
+                message: reviewResponse.statusText,
+            });
+        }
+        return { home: homeResponse.json, reviews: reviewResponse.json.hits };
+    },
+    methods: {
+        formatDate(dateStr) {
+            const date = new Date(dateStr);
+            return date.toLocaleString(undefined, {
+                month: "long",
+                year: "numeric",
+                day: "numeric",
+            });
+        },
     },
 };
 </script>

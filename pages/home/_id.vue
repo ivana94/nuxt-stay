@@ -49,34 +49,24 @@ export default {
         );
     },
     async asyncData({ params, $dataApi, error }) {
-        const homeResponse = await $dataApi.getHome(params.id);
-        if (!homeResponse.ok) {
-            return error({
-                statusCode: homeResponse.status,
-                message: homeResponse.statusText,
-            });
-        }
+        const responses = await Promise.all([
+            $dataApi.getHome(params.id),
+            $dataApi.getReviewsByHomeId(params.id),
+            $dataApi.getUserByHomeId(params.id),
+        ]);
 
-        const reviewResponse = await $dataApi.getReviewsByHomeId(params.id);
-        if (!reviewResponse.ok) {
+        const badResponse = responses.find((response) => !response.ok);
+        if (badResponse) {
             return error({
-                statusCode: reviewResponse.status,
-                message: reviewResponse.statusText,
-            });
-        }
-
-        const userResponse = await $dataApi.getUserByHomeId(params.id);
-        if (!userResponse.ok) {
-            return error({
-                statusCode: userResponse.status,
-                message: userResponse.statusText,
+                statusCode: badResponse.status,
+                message: badResponse.statusText,
             });
         }
 
         return {
-            home: homeResponse.json,
-            reviews: reviewResponse.json.hits,
-            user: userResponse.json.hits[0],
+            home: responses[0].json,
+            reviews: responses[1].json.hits,
+            user: responses[2].json.hits[0],
         };
     },
     methods: {

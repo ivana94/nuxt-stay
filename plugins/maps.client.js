@@ -43,6 +43,13 @@ export default function(context, inject) {
             input,
             options
         );
+        // this event fires whenever the user selects a place from the autocomplete
+        autoComplete.addListener("place_changed", () => {
+            // gives us the place the user selected
+            const place = autoComplete.getPlace();
+            // dispatchEvent takes an event object as an argument
+            input.dispatchEvent(new CustomEvent("changed", { detail: place }));
+        });
     }
 
     function showMap(canvas, lat, lng) {

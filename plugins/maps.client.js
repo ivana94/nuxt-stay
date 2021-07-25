@@ -1,39 +1,55 @@
 export default function(context, inject) {
-    let mapLoaded = false;
-    let mapWaiting = null;
+    let isLoaded = false;
+    let waiting = [];
 
     addScript();
     inject("maps", {
         showMap,
+        makeAutoComplete,
     });
 
     function addScript() {
         const script = document.createElement("script");
         script.src =
-            "https://maps.googleapis.com/maps/api/js?key=AIzaSyDvE1kkImXeOnVX8xEybtfAm37HtakzBK8&libraries=places&callback=initMap";
+            "https://maps.googleapis.com/maps/api/js?key=AIzaSyDvE1kkImXeOnVX8xEybtfAm37HtakzBK8&libraries=places&callback=initGoogleMaps";
         script.async = true;
-        window.initMap = initMap;
+        window.initGoogleMaps = initGoogleMaps;
         document.head.appendChild(script);
     }
 
-    function initMap() {
-        mapLoaded = true;
-        if (mapWaiting) {
-            const { canvas, lat, lng } = mapWaiting;
-            renderMap(canvas, lat, lng);
-            mapWaiting = null;
+    function initGoogleMaps() {
+        isLoaded = true;
+        waiting.forEach((elem) => {
+            if (typeof elem.fn === "function") {
+                elem.fn(...elem.arguments);
+            }
+        });
+        waiting = [];
+    }
+
+    function makeAutoComplete(input) {
+        if (!isLoaded) {
+            waiting.push({
+                fn: makeAutoComplete,
+                arguments,
+            });
+            return;
         }
+        // https://developers.google.com/maps/documentation/javascript/places-autocomplete
+        const options = {
+            types: ["(cities)"],
+        };
+        const autoComplete = new window.google.maps.places.Autocomplete(
+            input,
+            options
+        );
     }
 
     function showMap(canvas, lat, lng) {
-        if (mapLoaded) {
-            renderMap(canvas, lat, lng);
-        } else {
-            mapWaiting = { canvas, lat, lng };
+        if (!isLoaded) {
+            waiting.push({ fn: showMap, arguments });
+            return;
         }
-    }
-
-    function renderMap(canvas, lat, lng) {
         const mapOptions = {
             zoom: 18,
             center: new window.google.maps.LatLng(lat, lng),

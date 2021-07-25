@@ -2,7 +2,7 @@
     <div>
         <p>{{ lat }} / {{ lng }} / {{ label }}</p>
         <div v-for="home in homes" :key="home.objectID">
-            {{ home.title }}
+            <HomeRow :home="home" />
         </div>
     </div>
 </template>

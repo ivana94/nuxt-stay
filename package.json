@@ -7,5 +7,11 @@
         "dev": "nuxt",
         "build": "nuxt build",
         "start": "nuxt start"
+    },
+    "devDependencies": {
+        "@nuxtjs/tailwindcss": "^3.4.2",
+        "sass": "^1.32.5",
+        "sass-loader": "^10.1.1",
+        "webpack": "^4.46.0"
     }
 }

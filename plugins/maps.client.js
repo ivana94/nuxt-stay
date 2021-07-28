@@ -27,7 +27,7 @@ export default function(context, inject) {
         waiting = [];
     }
 
-    function makeAutoComplete(input) {
+    function makeAutoComplete(input, types = ["(cities)"]) {
         if (!isLoaded) {
             waiting.push({
                 fn: makeAutoComplete,
@@ -39,10 +39,9 @@ export default function(context, inject) {
         const options = {
             types: ["(cities)"],
         };
-        const autoComplete = new window.google.maps.places.Autocomplete(
-            input,
-            options
-        );
+        const autoComplete = new window.google.maps.places.Autocomplete(input, {
+            types,
+        });
         // this event fires whenever the user selects a place from the autocomplete
         autoComplete.addListener("place_changed", () => {
             // gives us the place the user selected

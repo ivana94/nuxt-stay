@@ -51,5 +51,4 @@ export default {
             key: "f2bacd2ff872cef6cb7456daf130dbf7",
         },
     },
-    serverMiddleware: [],
 };

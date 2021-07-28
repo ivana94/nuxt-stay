@@ -1,5 +1,28 @@
 [
   {
+    "name": "admin",
+    "path": "/admin",
+    "component": "/Users/ivanamatijevic/dev/nuxtbnb/pages/admin.vue",
+    "chunkName": "pages/admin",
+    "children": [
+      {
+        "name": "admin-homes",
+        "path": "homes",
+        "component": "/Users/ivanamatijevic/dev/nuxtbnb/pages/admin/homes.vue",
+        "chunkName": "pages/admin/homes",
+        "_name": "_0b94e5fe"
+      }
+    ],
+    "_name": "_0ef17ddc"
+  },
+  {
+    "name": "no-access",
+    "path": "/no-access",
+    "component": "/Users/ivanamatijevic/dev/nuxtbnb/pages/no-access.vue",
+    "chunkName": "pages/no-access",
+    "_name": "_4eae467d"
+  },
+  {
     "name": "search",
     "path": "/search",
     "component": "/Users/ivanamatijevic/dev/nuxtbnb/pages/search.vue",

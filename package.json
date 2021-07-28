@@ -1,6 +1,9 @@
 {
     "name": "nuxtbnb",
     "dependencies": {
+        "cookie": "^0.3.1",
+        "google-auth-library": "^7.3.0",
+        "js-cookie": "^3.0.0",
         "nuxt": "^2.15.7"
     },
     "scripts": {

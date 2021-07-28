@@ -1,6 +1,7 @@
 export default function(context, inject) {
     let isLoaded = false;
     let waiting = [];
+    window.initGoogleMaps = init;
 
     addScript();
     inject("maps", {
@@ -13,11 +14,10 @@ export default function(context, inject) {
         script.src =
             "https://maps.googleapis.com/maps/api/js?key=AIzaSyDvE1kkImXeOnVX8xEybtfAm37HtakzBK8&libraries=places&callback=initGoogleMaps";
         script.async = true;
-        window.initGoogleMaps = initGoogleMaps;
         document.head.appendChild(script);
     }
 
-    function initGoogleMaps() {
+    function init() {
         isLoaded = true;
         waiting.forEach((elem) => {
             if (typeof elem.fn === "function") {

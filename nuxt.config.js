@@ -25,7 +25,7 @@ export default {
         "~/plugins/dataApi",
         "~/plugins/auth.client",
     ],
-    modules: ["~/modules/auth", "~/modules/algolia"],
+    modules: ["~/modules/auth", "~/modules/algolia", "~/modules/cloudinary"],
     buildModules: ["@nuxtjs/tailwindcss"],
     css: ["~/assets/sass/app.scss"],
     build: {
@@ -49,6 +49,9 @@ export default {
         algolia: {
             appId: "5QS71OCCL0",
             key: "f2bacd2ff872cef6cb7456daf130dbf7",
+        },
+        cloudinary: {
+            apiSecret: "DIZ1wB33qjVifgCGWpXkdq2ZN-Y",
         },
     },
 };

@@ -5,6 +5,18 @@ import { getHeaders } from "../helpers";
 export default (algoliaConfig) => {
     const headers = getHeaders(algoliaConfig);
     return {
+        assignHome: async function(identity, homeId) {
+            // returns raw algolia user object
+            const payload = (await this.getById(identity)).json;
+            payload.homeId.push(homeId);
+            this.update(identity, payload);
+        },
+        removeHome: async function(identity, homeId) {
+            const payload = (await this.getById(identity)).json;
+            const homes = payload.homeId.filter((id) => id !== homeId);
+            payload.homeId = homes;
+            this.update(identity, payload);
+        },
         create: async (identity, payload) => {
             try {
                 return unwrap(
@@ -20,6 +32,9 @@ export default (algoliaConfig) => {
             } catch (error) {
                 return getErrorResponse(error);
             }
+        },
+        update: async function(identity, payload) {
+            this.create(identity, payload);
         },
         getById: async (identity) => {
             try {

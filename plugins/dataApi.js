@@ -70,7 +70,8 @@ export default function({ $config }, inject) {
         }
     }
 
-    async function getHomesByLocation(lat, lng, radiusInMeters = 1500) {
+    async function getHomesByLocation(lat, lng, radiusInMeters = 1500 * 15) {
+        // 1500 * 15 is about 15 miles
         try {
             return unwrap(
                 await fetch(

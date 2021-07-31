@@ -1,14 +1,19 @@
 <template>
     <div>
-        list of homes
+        <span v-for="home in homeList" :key="home.objectID">
+            {{ home.title }}
+            <button class="text-red-800" @click="deleteHome(home.objectID)">
+                delete</button
+            ><br />
+        </span>
         <h2 class="text-cl bold">add a home</h2>
         <form class="form" @submit.prevent="onSubmit">
             Images <br />
-            <input type="text" v-model="home.images[0]" class="w-3/4" /><br />
-            <input type="text" v-model="home.images[1]" class="w-3/4" /><br />
-            <input type="text" v-model="home.images[2]" class="w-3/4" /><br />
-            <input type="text" v-model="home.images[3]" class="w-3/4" /><br />
-            <input type="text" v-model="home.images[4]" class="w-3/4" /><br />
+            <ImageUploader @file-uploaded="imageUpdated($event, 0)" />
+            <ImageUploader @file-uploaded="imageUpdated($event, 1)" />
+            <ImageUploader @file-uploaded="imageUpdated($event, 2)" />
+            <ImageUploader @file-uploaded="imageUpdated($event, 3)" />
+            <ImageUploader @file-uploaded="imageUpdated($event, 4)" />
 
             Title <br />
             <input type="text" v-model="home.title" class="w-60" /><br />
@@ -63,9 +68,13 @@
     </div>
 </template>
 <script>
+import { unwrap } from "~/utils/fetchUtils";
+import ImageUploader from "../../components/ImageUploader.vue";
 export default {
+    components: { ImageUploader },
     data() {
         return {
+            homeList: [],
             home: {
                 title: "",
                 description: "",
@@ -87,20 +96,29 @@ export default {
                     lat: "",
                     lng: "",
                 },
-                images: [
-                    "https://images.unsplash.com/photo-1542718610-a1d656d1884c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80",
-                    "https://images.unsplash.com/photo-1542718610-a1d656d1884c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=70",
-                    "https://images.unsplash.com/photo-1542718610-a1d656d1884c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=60",
-                    "https://images.unsplash.com/photo-1542718610-a1d656d1884c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=50",
-                    "https://images.unsplash.com/photo-1542718610-a1d656d1884c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=40",
-                ],
+                images: [],
             },
         };
     },
     mounted() {
         this.$maps.makeAutoComplete(this.$refs.locationSelector, ["address"]);
+        this.setHomesList();
     },
     methods: {
+        async deleteHome(homeId) {
+            await fetch(`/api/homes/${homeId}`, { method: "DELETE" });
+            const index = this.homeList.findIndex(
+                (obj) => obj.objectID === homeId
+            );
+            this.homeList.splice(index, 1);
+        },
+        async setHomesList() {
+            this.homeList = (await unwrap(await fetch("/api/homes/user"))).json;
+        },
+        imageUpdated(imageUrl, index) {
+            console.log(imageUrl);
+            this.home.images[index] = imageUrl;
+        },
         changed(event) {
             const addressParts = event.detail.address_components;
             const street =
@@ -128,12 +146,18 @@ export default {
             return parts.find((part) => part.types.includes(type));
         },
         async onSubmit() {
-            await fetch("/api/homes", {
-                method: "POST",
-                body: JSON.stringify(this.home),
-                headers: {
-                    "Content-Type": "application/json",
-                },
+            const response = await unwrap(
+                await fetch("/api/homes", {
+                    method: "POST",
+                    body: JSON.stringify(this.home),
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                })
+            );
+            this.homeList.push({
+                title: this.home.title,
+                objectId: response.json.homeId,
             });
         },
     },

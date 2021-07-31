@@ -25,8 +25,16 @@ export default {
         "~/plugins/dataApi",
         "~/plugins/auth.client",
     ],
-    modules: ["~/modules/auth", "~/modules/algolia", "~/modules/cloudinary"],
+    modules: [
+        "~/modules/auth",
+        "~/modules/algolia",
+        "~/modules/cloudinary",
+        "@nuxtjs/cloudinary",
+    ],
     buildModules: ["@nuxtjs/tailwindcss"],
+    cloudinary: {
+        cloudName: "dehkvp5v2",
+    },
     css: ["~/assets/sass/app.scss"],
     build: {
         extractCSS: true,
@@ -43,6 +51,9 @@ export default {
         algolia: {
             appId: "5QS71OCCL0",
             key: "33ff9a090ed2378cd44ef55bd5a86b6a",
+        },
+        cloudinary: {
+            apiKey: "253987651285934",
         },
     },
     privateRuntimeConfig: {

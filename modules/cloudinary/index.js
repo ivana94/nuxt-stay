@@ -12,7 +12,7 @@ export default function() {
             const sha1 = createHash("sha1");
             const payload = [];
 
-            Object.keys(req.body).foreach((key) => {
+            Object.keys(req.body).forEach((key) => {
                 payload.push(`${key}=${req.body[key]}`);
             });
 

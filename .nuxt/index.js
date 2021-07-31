@@ -14,6 +14,8 @@ import { createStore } from './store.js'
 /* Plugins */
 
 import nuxt_plugin_plugin_8f24dd6e from 'nuxt_plugin_plugin_8f24dd6e' // Source: ./components/plugin.js (mode: 'all')
+import nuxt_plugin_pluginclient_4e16bb58 from 'nuxt_plugin_pluginclient_4e16bb58' // Source: ./cloudinary/plugin.client.js (mode: 'client')
+import nuxt_plugin_pluginserver_3eae13dc from 'nuxt_plugin_pluginserver_3eae13dc' // Source: ./cloudinary/plugin.server.js (mode: 'server')
 import nuxt_plugin_maps_6ed989cc from 'nuxt_plugin_maps_6ed989cc' // Source: ../plugins/maps.client (mode: 'client')
 import nuxt_plugin_dataApi_3cd42dda from 'nuxt_plugin_dataApi_3cd42dda' // Source: ../plugins/dataApi (mode: 'all')
 import nuxt_plugin_auth_6442cd9b from 'nuxt_plugin_auth_6442cd9b' // Source: ../plugins/auth.client (mode: 'client')
@@ -215,6 +217,14 @@ async function createApp(ssrContext, config = {}) {
 
   if (typeof nuxt_plugin_plugin_8f24dd6e === 'function') {
     await nuxt_plugin_plugin_8f24dd6e(app.context, inject)
+  }
+
+  if (process.client && typeof nuxt_plugin_pluginclient_4e16bb58 === 'function') {
+    await nuxt_plugin_pluginclient_4e16bb58(app.context, inject)
+  }
+
+  if (process.server && typeof nuxt_plugin_pluginserver_3eae13dc === 'function') {
+    await nuxt_plugin_pluginserver_3eae13dc(app.context, inject)
   }
 
   if (process.client && typeof nuxt_plugin_maps_6ed989cc === 'function') {

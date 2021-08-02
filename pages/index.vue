@@ -12,7 +12,6 @@
     </div>
 </template>
 <script>
-import homes from "~/data/homes";
 export default {
     // adds meta tags
     head() {
@@ -27,9 +26,9 @@ export default {
             ],
         };
     },
-    data() {
+    async asyncData({ $dataApi }) {
         return {
-            homes: homes.slice(0, 3),
+            homes: (await $dataApi.getHomes()).json.hits,
         };
     },
 };

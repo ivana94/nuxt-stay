@@ -24,6 +24,7 @@ export default {
         "~/plugins/maps.client",
         "~/plugins/dataApi",
         "~/plugins/auth.client",
+        "~/plugins/vCalendar.client",
     ],
     modules: [
         "~/modules/auth",
@@ -31,9 +32,14 @@ export default {
         "~/modules/cloudinary",
         "@nuxtjs/cloudinary",
     ],
-    buildModules: ["@nuxtjs/tailwindcss"],
+    buildModules: ["@nuxtjs/tailwindcss", "@nuxt/image"],
     cloudinary: {
         cloudName: "dehkvp5v2",
+    },
+    image: {
+        cloudinary: {
+            baseURL: "https://res.cloudinary.com/dehkvp5v2/image/upload/",
+        },
     },
     css: ["~/assets/sass/app.scss"],
     build: {

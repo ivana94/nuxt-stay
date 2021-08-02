@@ -11,6 +11,7 @@ export default function({ $config }, inject) {
         getReviewsByHomeId,
         getUserByHomeId,
         getHomesByLocation,
+        getHomes,
     });
 
     async function getHome(homeId) {
@@ -85,6 +86,26 @@ export default function({ $config }, inject) {
                             // so if radiusInMeters = 1500 we will only see results 1500m from the search
                             aroundRadius: radiusInMeters,
                             hitsPerPage: 10,
+                            attributesToHighlight: [],
+                        }),
+                    }
+                )
+            );
+        } catch (error) {
+            return getErrorResponse(error);
+        }
+    }
+
+    async function getHomes() {
+        try {
+            return unwrap(
+                await fetch(
+                    `https://${$config.algolia.appId}-dsn.algolia.net/1/indexes/homes/query`,
+                    {
+                        headers,
+                        method: "POST",
+                        body: JSON.stringify({
+                            hitsPerPage: 3,
                             attributesToHighlight: [],
                         }),
                     }

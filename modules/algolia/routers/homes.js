@@ -16,6 +16,7 @@ export default (apis) => {
             if (hasBadBody(req)) {
                 return rejectHitBadRequset(res);
             }
+            console.log("create home");
             await createHome(req.identity, req.body, res);
             return;
         }

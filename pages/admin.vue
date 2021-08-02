@@ -11,7 +11,7 @@
 import Cookie from "js-cookie";
 
 export default {
-    asyncData({ $config }) {
+    asyncData({ $config, redirect }) {
         if (!Cookie.get($config.auth.cookieName)) {
             // if not logged in
             redirect("/node-access");

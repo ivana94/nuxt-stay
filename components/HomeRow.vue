@@ -1,9 +1,12 @@
 <template>
     <div>
-        <div
+        <nuxt-img
             class="app-house-header"
-            :style="`background-image:url(${home.images[0]})`"
-        ></div>
+            provider="cloudinary"
+            height="200"
+            width="360"
+            :src="home.images[0]"
+        />
         <div class="app-house-body">
             <img class="app-fav" src="/images/icons/heart.svg" />
             <h2>{{ home.title }}</h2>

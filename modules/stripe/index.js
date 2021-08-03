@@ -43,6 +43,8 @@ export default function() {
         ) {
             return rejectHitBadRequset(res);
         }
+        console.log("body: ", body);
+        console.log("req: ", req);
         const home = (await apis.homes.get(body.homeId)).json;
         const nights = (body.end - body.start) / 86400;
         const session = await stripe.checkout.sessions.create({

@@ -24,7 +24,11 @@ export default function() {
                 meta.start,
                 meta.end
             );
-            res.end(`${meta.identityId} booked ${meta.homeId}`);
+            res.end(
+                `${JSON.stringify(meta)} ${meta.identityId} booked ${
+                    meta.homeId
+                }`
+            );
         });
     });
 
@@ -43,8 +47,8 @@ export default function() {
         const nights = (body.end - body.start) / 86400;
         const session = await stripe.checkout.sessions.create({
             metadata: {
-                identityId: req.identity.it,
-                homeId: body.home,
+                identityId: req.identity.id,
+                homeId: body.homeId,
                 start: body.start,
                 end: body.end,
             },

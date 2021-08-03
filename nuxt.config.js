@@ -25,12 +25,14 @@ export default {
         "~/plugins/dataApi",
         "~/plugins/auth.client",
         "~/plugins/vCalendar.client",
+        "~/plugins/stripe.client",
     ],
     modules: [
         "~/modules/auth",
         "~/modules/algolia",
         "~/modules/cloudinary",
         "@nuxtjs/cloudinary",
+        "~/modules/stripe",
     ],
     buildModules: ["@nuxtjs/tailwindcss", "@nuxt/image"],
     cloudinary: {
@@ -61,6 +63,10 @@ export default {
         cloudinary: {
             apiKey: "253987651285934",
         },
+        stripe: {
+            key:
+                "pk_test_51JKBqvIIAvOA9caivwdSTSJLIe6yxN431hSUC8lVEwSxtkgAm3h6vpsEQh5TEO5KCOwm7Bmj48D8n7lae0dXQv0K00JqptUoBD",
+        },
     },
     privateRuntimeConfig: {
         algolia: {
@@ -69,6 +75,9 @@ export default {
         },
         cloudinary: {
             apiSecret: "DIZ1wB33qjVifgCGWpXkdq2ZN-Y",
+        },
+        stripe: {
+            secretKey: process.env.STRIPE_SECRET_KEY,
         },
     },
 };

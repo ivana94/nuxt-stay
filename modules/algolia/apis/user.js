@@ -1,6 +1,6 @@
 import fetch from "node-fetch";
 import { unwrap, getErrorResponse } from "../../../utils/fetchUtils";
-import { getHeaders } from "../helpers";
+import { getHeaders } from "../../helpers";
 
 export default (algoliaConfig) => {
     const headers = getHeaders(algoliaConfig);

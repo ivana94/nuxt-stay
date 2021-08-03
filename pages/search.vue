@@ -33,7 +33,9 @@ export default {
         // beforeRouteUpdate runs when user navigates to search page from search page
         const data = await this.$dataApi.getHomesByLocation(
             to.query.lat,
-            to.query.lng
+            to.query.lng,
+            to.query.start,
+            to.query.end
         );
         this.homes = data.json.hits;
         this.label = to.query.label;
@@ -43,7 +45,12 @@ export default {
         next();
     },
     async asyncData({ query, $dataApi }) {
-        const data = await $dataApi.getHomesByLocation(query.lat, query.lng);
+        const data = await $dataApi.getHomesByLocation(
+            query.lat,
+            query.lng,
+            query.start,
+            query.end
+        );
         return {
             label: query.label,
             lat: query.lat,
@@ -64,6 +71,7 @@ export default {
             );
         },
         getHomeMarkers() {
+            console.log("this.homes: ", this.homes);
             if (this.homes.length === 0) {
                 return null;
             }

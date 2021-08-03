@@ -1,10 +1,24 @@
 import fetch from "node-fetch";
 import { unwrap, getErrorResponse } from "../../../utils/fetchUtils";
-import { getHeaders } from "../helpers";
+import { getHeaders } from "../../helpers";
 
 export default (algoliaConfig) => {
     const headers = getHeaders(algoliaConfig);
     return {
+        get: async (homeId) => {
+            try {
+                return unwrap(
+                    await fetch(
+                        `https://${algoliaConfig.appId}-dsn.algolia.net/1/indexes/homes/${homeId}`,
+                        {
+                            headers,
+                        }
+                    )
+                );
+            } catch (error) {
+                return getErrorResponse(error);
+            }
+        },
         create: async (homeId, payload) => {
             try {
                 const availability = [];
@@ -35,7 +49,7 @@ export default (algoliaConfig) => {
                 return getErrorResponse(error);
             }
         },
-        delete: async (homeId, payload) => {
+        delete: async (homeId) => {
             try {
                 return unwrap(
                     await fetch(

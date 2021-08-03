@@ -43,6 +43,11 @@ export default {
                     property: "og:url",
                     content: `${this.$config.rootUrl}/home/${this.home.objectID}`,
                 },
+                {
+                    hid: "t-type",
+                    property: "twitter:card",
+                    content: "summary_large_image",
+                },
             ],
         };
     },

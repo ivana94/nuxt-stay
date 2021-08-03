@@ -14,6 +14,14 @@ export default function() {
         app.use("/api/stripe/create-session", createSession);
     });
 
+    this.nuxt.hook("render:setupMiddleware", (app) => {
+        app.use("/hooks/stripe", (req, res) => {
+            // this will run when payment is posted to stripe
+            const meta = req.body.data.object.metadata;
+            res.end(`${meta.identityId} booked ${meta.homeId}`);
+        });
+    });
+
     async function createSession(req, res) {
         const { body } = req;
         if (
@@ -28,6 +36,12 @@ export default function() {
         const home = (await apis.homes.get(body.homeId)).json;
         const nights = (body.end - body.start) / 86400;
         const session = await stripe.checkout.sessions.create({
+            metaData: {
+                identityId: req.identity.it,
+                homeId: body.home,
+                start: body.start,
+                end: body.end,
+            },
             payment_method_types: ["card"],
             mode: "payment",
             success_url: `${rootUrl}/home/${body.homeId}?result=success`,

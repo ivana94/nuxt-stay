@@ -24,11 +24,7 @@ export default function() {
                 meta.start,
                 meta.end
             );
-            res.end(
-                `${JSON.stringify(meta)} ${meta.identityId} booked ${
-                    meta.homeId
-                }`
-            );
+            res.end(`${meta.identityId} booked ${meta.homeId}`);
         });
     });
 
@@ -43,8 +39,6 @@ export default function() {
         ) {
             return rejectHitBadRequset(res);
         }
-        console.log("body: ", body);
-        console.log("req: ", req);
         const home = (await apis.homes.get(body.homeId)).json;
         const nights = (body.end - body.start) / 86400;
         const session = await stripe.checkout.sessions.create({

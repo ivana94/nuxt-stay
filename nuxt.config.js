@@ -1,4 +1,8 @@
 export default {
+    rootUrl:
+        process.env.NODE_ENV === "production"
+            ? "https://stbnb.vercel.app"
+            : "http://localhost:3000",
     // enables auto imports, which removes need for component boilerplate
     components: true,
 

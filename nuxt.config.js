@@ -1,8 +1,4 @@
 export default {
-    rootUrl:
-        process.env.NODE_ENV === "production"
-            ? "https://stbnb.vercel.app"
-            : "http://localhost:3000",
     // enables auto imports, which removes need for component boilerplate
     components: true,
 
@@ -71,6 +67,10 @@ export default {
             key:
                 "pk_test_51JKBqvIIAvOA9caivwdSTSJLIe6yxN431hSUC8lVEwSxtkgAm3h6vpsEQh5TEO5KCOwm7Bmj48D8n7lae0dXQv0K00JqptUoBD",
         },
+        rootUrl:
+            process.env.NODE_ENV === "production"
+                ? "https://stbnb.vercel.app"
+                : "http://localhost:3000",
     },
     privateRuntimeConfig: {
         algolia: {

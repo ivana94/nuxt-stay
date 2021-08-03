@@ -15,9 +15,15 @@ export default function() {
     });
 
     this.nuxt.hook("render:setupMiddleware", (app) => {
-        app.use("/hooks/stripe", (req, res) => {
+        app.use("/hooks/stripe", async (req, res) => {
             // this will run when payment is posted to stripe
             const meta = req.body.data.object.metadata;
+            await apis.user.bookHome(
+                meta.identityId,
+                meta.homeId,
+                meta.start,
+                meta.end
+            );
             res.end(`${meta.identityId} booked ${meta.homeId}`);
         });
     });
@@ -36,7 +42,7 @@ export default function() {
         const home = (await apis.homes.get(body.homeId)).json;
         const nights = (body.end - body.start) / 86400;
         const session = await stripe.checkout.sessions.create({
-            metaData: {
+            metadata: {
                 identityId: req.identity.it,
                 homeId: body.home,
                 start: body.start,

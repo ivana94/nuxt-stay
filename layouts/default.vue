@@ -1,9 +1,11 @@
 <template>
     <div class="app">
         <header class="app-header">
-            <div class="app-logo">
-                <img src="/images/logo.svg" />
-            </div>
+            <nuxt-link to="/">
+                <div class="app-logo">
+                    <img src="/images/logo.svg" />
+                </div>
+            </nuxt-link>
             <div class="app-search">
                 <input
                     type="text"

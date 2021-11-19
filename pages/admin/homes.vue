@@ -139,6 +139,7 @@ export default {
             this.homeList = (await unwrap(await fetch("/api/homes/user"))).json;
         },
         imageUpdated(imageUrl, index) {
+            console.log("imageulr", imageUrl);
             this.home.images[index] = imageUrl;
         },
         changed(event) {
@@ -170,6 +171,7 @@ export default {
             return parts.find((part) => part.types.includes(type));
         },
         async onSubmit() {
+            console.log("this.home: ", this.home);
             const response = await unwrap(
                 await fetch("/api/homes", {
                     method: "POST",

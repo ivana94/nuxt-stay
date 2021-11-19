@@ -47,8 +47,6 @@
             </div>
             <div class="app-user-menu">
                 <template v-if="isLoggedIn">
-                    <img src="/images/icons/house.svg" />
-                    <div class="name">Host</div>
                     <img :src="user.profileUrl" class="avatar" />
                 </template>
                 <div v-show="!isLoggedIn" id="googleButton" class="ml-8"></div>

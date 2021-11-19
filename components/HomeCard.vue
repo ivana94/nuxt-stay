@@ -3,8 +3,8 @@
         <div>
             <nuxt-img
                 :src="home.images[0]"
-                width="200"
-                height="150"
+                width="400"
+                height="300"
                 provider="cloudinary"
             /><br />
         </div>

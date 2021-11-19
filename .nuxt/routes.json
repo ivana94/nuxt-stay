@@ -9,38 +9,32 @@
         "name": "admin-homes",
         "path": "homes",
         "component": "/Users/ivanamatijevic/dev/nuxtbnb/pages/admin/homes.vue",
-        "chunkName": "pages/admin/homes",
-        "_name": "_0b94e5fe"
+        "chunkName": "pages/admin/homes"
       }
-    ],
-    "_name": "_0ef17ddc"
+    ]
   },
   {
     "name": "no-access",
     "path": "/no-access",
     "component": "/Users/ivanamatijevic/dev/nuxtbnb/pages/no-access.vue",
-    "chunkName": "pages/no-access",
-    "_name": "_4eae467d"
+    "chunkName": "pages/no-access"
   },
   {
     "name": "search",
     "path": "/search",
     "component": "/Users/ivanamatijevic/dev/nuxtbnb/pages/search.vue",
-    "chunkName": "pages/search",
-    "_name": "_7e81eb6b"
+    "chunkName": "pages/search"
   },
   {
     "name": "home-id",
     "path": "/home/:id?",
     "component": "/Users/ivanamatijevic/dev/nuxtbnb/pages/home/_id.vue",
-    "chunkName": "pages/home/_id",
-    "_name": "_88973ae6"
+    "chunkName": "pages/home/_id"
   },
   {
     "name": "index",
     "path": "/",
     "component": "/Users/ivanamatijevic/dev/nuxtbnb/pages/index.vue",
-    "chunkName": "pages/index",
-    "_name": "_44fbac42"
+    "chunkName": "pages/index"
   }
 ]

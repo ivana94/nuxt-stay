@@ -4,7 +4,7 @@ export default {
 
     // global metas
     head: {
-        titleTemplate: "STBnB: %s",
+        titleTemplate: "Nuxt Stay: %s",
         htmlAttrs: {
             lang: "en",
         },
@@ -54,14 +54,14 @@ export default {
         auth: {
             cookieName: "idToken",
             clientId:
-                "48276842679-qspmmaedh0f4vmdc1vj8lgq6a6ol5i8t.apps.googleusercontent.com",
+                "48276842679-lh2ne8pqrsvsq4sljt796pjo99gfiv2l.apps.googleusercontent.com",
         },
         algolia: {
             appId: "5QS71OCCL0",
             key: "33ff9a090ed2378cd44ef55bd5a86b6a",
         },
         cloudinary: {
-            apiKey: "253987651285934",
+            apiKey: "441312267793484",
         },
         stripe: {
             key:
@@ -75,10 +75,10 @@ export default {
     privateRuntimeConfig: {
         algolia: {
             appId: "5QS71OCCL0",
-            key: "f2bacd2ff872cef6cb7456daf130dbf7",
+            key: process.env.ALGOLIA_SECRET_KEY,
         },
         cloudinary: {
-            apiSecret: "DIZ1wB33qjVifgCGWpXkdq2ZN-Y",
+            apiSecret: process.env.CLOUDINARY_SECRET_KEY,
         },
         stripe: {
             secretKey: process.env.STRIPE_SECRET_KEY,

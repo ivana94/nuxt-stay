@@ -15,7 +15,7 @@ export default function() {
             Object.keys(req.body).forEach((key) => {
                 payload.push(`${key}=${req.body[key]}`);
             });
-
+            console.log("config.apiSecret", config);
             sha1.update(payload.sort().join("&") + config.apiSecret);
             res.end(
                 JSON.stringify({

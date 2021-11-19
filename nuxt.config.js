@@ -54,7 +54,7 @@ export default {
         auth: {
             cookieName: "idToken",
             clientId:
-                "48276842679-lh2ne8pqrsvsq4sljt796pjo99gfiv2l.apps.googleusercontent.com",
+                "48276842679-mn9has666ro7vuujj89863ck8rogpk79.apps.googleusercontent.com",
         },
         algolia: {
             appId: "5QS71OCCL0",

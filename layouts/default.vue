@@ -13,6 +13,7 @@
                     @changed="changed"
                     placeholder="enter your address"
                 />
+
                 <client-only>
                     <template #placeholder>
                         <input class="datepicker" />
@@ -53,6 +54,15 @@
             </div>
         </header>
         <nuxt />
+        <footer>
+            <nuxt-link to="/admin">
+                <div>
+                    Admin panel
+                </div>
+            </nuxt-link>
+            <div class="logout cursor-pointer" @click="logout">Logout</div>
+            <div>&#169; Matijevic 2021</div>
+        </footer>
     </div>
 </template>
 <script>
@@ -103,6 +113,9 @@ export default {
             this.location.lat = place.geometry.location.lat();
             this.location.lng = place.geometry.location.lng();
             this.location.label = this.$refs.citySearch.value;
+        },
+        logout() {
+            this.$auth.signOut();
         },
     },
 };

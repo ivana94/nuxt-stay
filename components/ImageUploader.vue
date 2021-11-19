@@ -50,8 +50,6 @@ export default {
                 signature,
             });
 
-            console.log("signature?", signature);
-
             this.$emit("file-uploaded", asset.public_id);
         },
     },

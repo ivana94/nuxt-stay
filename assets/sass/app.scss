@@ -1,15 +1,14 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap");
 
 // variables
-$xl: 87.5em; // 4k and hi-res desktop
-$lg: 60em; // 1080 and hi-res laptops
-$med: 40em; // hi-res tablets and low-res laptops
-$sm: 28em; // mobile and low-res tablets
-$xs: 20em; // mobile only
+$desktop-large: 87.5em;
+$laptop: 1025px;
+$tablet: 721px;
+$phone: 720px;
 
 // mixins
 @mixin responsive($query) {
-    @media (min-width: $query) {
+    @media (max-width: $query) {
         @content;
     }
 }
@@ -17,6 +16,7 @@ $xs: 20em; // mobile only
 html,
 body {
     @apply font-roboto;
+    height: 100%;
 }
 
 $cities: paris, new-york, london, dubai, san-francisco, cancun;
@@ -27,6 +27,17 @@ $cities: paris, new-york, london, dubai, san-francisco, cancun;
 }
 
 .app {
+    height: 145vh;
+    position: relative;
+
+    footer {
+        @apply absolute bottom-0 ml-8 flex justify-between py-3;
+
+        div {
+            @apply ml-5;
+        }
+    }
+
     &-flex {
         @apply flex justify-between items-center;
     }
@@ -50,9 +61,9 @@ $cities: paris, new-york, london, dubai, san-francisco, cancun;
     &-logo {
         @apply inline-block mr-10;
 
-        // @include responsive($sm) {
-        //     @apply hidden;
-        // }
+        @include responsive($phone) {
+            @apply hidden;
+        }
     }
 
     &-description {
@@ -98,16 +109,16 @@ $cities: paris, new-york, london, dubai, san-francisco, cancun;
     &-search {
         @apply flex items-center;
 
-        // @include responsive($sm) {
-        //     @apply flex-col items-center;
-        // }
+        @include responsive($phone) {
+            @apply flex-col items-start;
+        }
 
         input {
             @apply border-2 border-mineshaft rounded-sm py-2 px-1 mr-8;
 
-            // @include responsive($sm) {
-            //     @apply mt-1 w-full;
-            // }
+            @include responsive($phone) {
+                @apply mt-1 w-full;
+            }
 
             &.datepicker {
                 background-image: url(/images/icons/calendar.svg);
@@ -119,19 +130,18 @@ $cities: paris, new-york, london, dubai, san-francisco, cancun;
         > button {
             @apply bg-mineshaft self-stretch px-5 rounded-lg;
 
-            // @include responsive($sm) {
-            //     @apply px-3 py-3 mt-2;
-            // }
+            @include responsive($phone) {
+                @apply px-3 py-3 mt-2;
+            }
         }
     }
 
     &-homes {
         width: 70%;
         float: left;
-        // @include responsive($sm) {
-        //     display: flex;
-        //     flex-direction: column;
-        // }
+        @include responsive($phone) {
+            @apply w-full;
+        }
     }
 
     &-home-card {
@@ -155,9 +165,9 @@ $cities: paris, new-york, london, dubai, san-francisco, cancun;
         h3 {
             font-size: 1.5rem;
             font-weight: bold;
-            // @include responsive($sm) {
-            //     font-size: 1rem;
-            // }
+            @include responsive($phone) {
+                font-size: 1rem;
+            }
         }
 
         p.app-home-text-price {
@@ -168,7 +178,7 @@ $cities: paris, new-york, london, dubai, san-francisco, cancun;
             margin-bottom: 20px;
             font-size: 1.2rem;
             font-weight: bold;
-            @include responsive($sm) {
+            @include responsive($phone) {
                 font-size: 1rem;
                 margin: 0;
             }
@@ -184,7 +194,7 @@ $cities: paris, new-york, london, dubai, san-francisco, cancun;
 
         .avatar {
             @apply w-12 h-12 rounded-full border-2 border-mineshaft ml-10;
-            @include responsive($sm) {
+            @include responsive($phone) {
                 @apply hidden;
             }
         }
@@ -403,6 +413,10 @@ $cities: paris, new-york, london, dubai, san-francisco, cancun;
 
         .app-search {
             @apply grid grid-cols-2 gap-4;
+
+            @include responsive($phone) {
+                @apply block;
+            }
 
             input {
                 @apply mr-0 ml-0;

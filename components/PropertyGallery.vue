@@ -24,7 +24,7 @@ export default {
             return this.$img(
                 publicId,
                 {
-                    width: 600,
+                    width: 700,
                 },
                 {
                     provider: "cloudinary",

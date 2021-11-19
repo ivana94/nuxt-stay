@@ -1,88 +1,146 @@
 <template>
     <div>
-        <span v-for="home in homeList" :key="home.objectID">
+        <h2 class="text-lg font-bold">Delete a home</h2>
+        <div v-for="home in homeList" :key="home.objectID">
             {{ home.title }}
             <button class="text-red-800" @click="deleteHome(home.objectID)">
-                delete</button
-            ><br />
-        </span>
-        <h2 class="text-cl bold">add a home</h2>
+                delete
+            </button>
+        </div>
+        <div class="border-2 border-mineshaft "></div>
+        <h2 class="text-lg font-bold">Add a home</h2>
         <form class="form" @submit.prevent="onSubmit">
-            Images <br />
-            <ImageUploader @file-uploaded="imageUpdated($event, 0)" />
-            <ImageUploader @file-uploaded="imageUpdated($event, 1)" />
-            <ImageUploader @file-uploaded="imageUpdated($event, 2)" />
-            <ImageUploader @file-uploaded="imageUpdated($event, 3)" />
-            <ImageUploader @file-uploaded="imageUpdated($event, 4)" />
+            <div>
+                <label class="font-bold">Images</label>
+                <ImageUploader
+                    v-for="(imageInput, index) in home.images"
+                    :key="index"
+                />
+            </div>
 
-            Title <br />
-            <input type="text" v-model="home.title" class="w-60" /><br />
+            <div class="mt-3">
+                <label class="font-bold">Title</label><br />
+                <input type="text" v-model="home.title" class="w-60" />
+            </div>
 
-            Description <br />
-            <textarea
-                type="text"
-                v-model="home.description"
-                class="w-104"
-            /><br />
+            <div>
+                <label class="font-bold">Description</label><br />
+                <textarea
+                    type="text"
+                    v-model="home.description"
+                    class="w-104"
+                />
+            </div>
 
-            Note <br />
-            <textarea type="text" v-model="home.note" class="w-104" /><br />
+            <div>
+                <label class="font-bold">Note</label><br />
+                <textarea type="text" v-model="home.note" class="w-104" />
+            </div>
 
-            Features <br />
-            <input type="text" v-model="home.features[0]" class="w-26" />
-            <input type="text" v-model="home.features[1]" class="w-26" />
-            <input type="text" v-model="home.features[2]" class="w-26" />
-            <input type="text" v-model="home.features[3]" class="w-26" />
-            <input type="text" v-model="home.features[4]" class="w-26" /><br />
+            <div>
+                <label class="font-bold">Features</label><br />
+                <input type="text" v-model="home.features[0]" class="w-26" />
+                <input type="text" v-model="home.features[1]" class="w-26" />
+                <input type="text" v-model="home.features[2]" class="w-26" />
+                <input type="text" v-model="home.features[3]" class="w-26" />
+                <input type="text" v-model="home.features[4]" class="w-26" />
+            </div>
 
-            Price per night <br />
-            <input type="number" v-model="home.pricePerNight" class="w-14" />
+            <div>
+                <label class="font-bold">Price per night</label><br />
+                <input
+                    type="number"
+                    v-model="home.pricePerNight"
+                    class="w-14"
+                />
+            </div>
 
-            Guests / Rooms / Beds / Baths<br />
+            <label class="font-bold">Guests / Rooms / Beds / Baths</label><br />
             <input type="number" v-model="home.guests" class="w-14" />
             <input type="number" v-model="home.bedrooms" class="w-14" />
             <input type="number" v-model="home.beds" class="w-14" />
-            <input type="number" v-model="home.bathrooms" class="w-14" /><br />
+            <input type="number" v-model="home.bathrooms" class="w-14" />
 
-            <input
-                type="text"
-                ref="locationSelector"
-                autocomplete="off"
-                placeholder="select a location"
-                @changed="changed"
-            /><br />
+            <div>
+                <label class="font-bold">Address</label><br />
+                <input
+                    type="text"
+                    ref="locationSelector"
+                    autocomplete="off"
+                    placeholder="select a location"
+                    @changed="changed"
+                />
+            </div>
 
-            Address:
-            <input type="text" v-model="home.location.address" class="w-26" />
-            City:
-            <input type="text" v-model="home.location.city" class="w-26" />
-            State:
-            <input type="text" v-model="home.location.state" class="w-26" />
-            Postal Code:
-            <input
-                type="text"
-                v-model="home.location.postalCode"
-                class="w-26"
-            />
-            Country:
-            <input type="text" v-model="home.location.country" class="w-26" />
+            <div>
+                <div>
+                    <label class="font-bold">Address</label>:<br />
+                    <input
+                        type="text"
+                        v-model="home.location.address"
+                        class="w-26"
+                    />
+                </div>
+                <div>
+                    <label class="font-bold">City</label>:<br />
+                    <input
+                        type="text"
+                        v-model="home.location.city"
+                        class="w-26"
+                    />
+                </div>
+                <div>
+                    <label class="font-bold">State</label>:<br />
+                    <input
+                        type="text"
+                        v-model="home.location.state"
+                        class="w-26"
+                    />
+                </div>
+                <div>
+                    <label class="font-bold">Postal Code</label>:<br />
+                    <input
+                        type="text"
+                        v-model="home.location.postalCode"
+                        class="w-26"
+                    />
+                </div>
+                <div>
+                    <label class="font-bold">Country</label>:<br />
+                    <input
+                        type="text"
+                        v-model="home.location.country"
+                        class="w-26"
+                    />
+                </div>
+            </div>
 
-            <date-picker
-                v-for="(range, index) in home.availabilityRanges"
-                :key="index"
-                v-model="home.availabilityRanges[index]"
-                is-range
-                timezone="UTC"
-                :modelConfig="{ timeAdjust: '00:00:00' }"
+            <div>
+                <label class="font-bold">Dates Available</label>:<br />
+                <date-picker
+                    v-for="(range, index) in home.availabilityRanges"
+                    :key="index"
+                    v-model="home.availabilityRanges[index]"
+                    is-range
+                    timezone="UTC"
+                    :modelConfig="{ timeAdjust: '00:00:00' }"
+                >
+                    <template v-slot="{ inputValue, inputEvents }">
+                        <input
+                            :value="inputValue.start"
+                            v-on="inputEvents.start"
+                        />
+                        to
+                        <input :value="inputValue.end" v-on="inputEvents.end" />
+                    </template>
+                </date-picker>
+            </div>
+
+            <button
+                class="mt-3 ml-1 bg-mineshaft self-stretch px-10 py-3 rounded-lg text-white"
             >
-                <template v-slot="{ inputValue, inputEvents }">
-                    <input :value="inputValue.start" v-on="inputEvents.start" />
-                    to
-                    <input :value="inputValue.end" v-on="inputEvents.end" />
-                </template>
-            </date-picker>
-
-            <button class="border px-4 py-2 border-gray-400">Add</button>
+                Add
+            </button>
         </form>
     </div>
 </template>
@@ -115,7 +173,7 @@ export default {
                     lat: "",
                     lng: "",
                 },
-                images: [],
+                images: [null, null, null, null, null],
                 availabilityRanges: [
                     { start: "", end: "" },
                     { start: "", end: "" },

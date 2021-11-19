@@ -16,7 +16,6 @@
                 <client-only>
                     <template #placeholder>
                         <input class="datepicker" />
-                        <span class="-ml-6 mr-2">to</span>
                         <input class="datepicker" />
                     </template>
 
@@ -28,12 +27,13 @@
                     >
                         <template v-slot="{ inputValue, inputEvents }">
                             <input
+                                placeholder="from"
                                 :value="inputValue.start"
                                 v-on="inputEvents.start"
                                 class="datepicker"
                             />
-                            <span class="-ml-6 mr-2">to</span>
                             <input
+                                placeholder="to"
                                 :value="inputValue.end"
                                 v-on="inputEvents.end"
                                 class="datepicker"
